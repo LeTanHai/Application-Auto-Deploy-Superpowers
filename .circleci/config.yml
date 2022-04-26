@@ -31,6 +31,8 @@ jobs:
           name: Back-end build
           command: |
             cd backend
+            rm -rf node_modules
+            rm -f package-lock.json
             npm install
             npm run build
       - save_cache:
