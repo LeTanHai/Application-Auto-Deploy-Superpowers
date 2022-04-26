@@ -31,9 +31,7 @@ jobs:
           name: Back-end build
           command: |
             cd backend
-            rm -rf node_modules
-            rm -f package-lock.json
-            npm install
+            npm install --legacy-peer-deps
             npm run build
       - save_cache:
           paths: [backend/node_modules]
