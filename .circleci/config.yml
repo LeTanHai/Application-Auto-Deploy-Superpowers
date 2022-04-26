@@ -25,13 +25,12 @@ jobs:
       - image: circleci/node:16.3.0
     steps:
       - checkout
-      - restore_cache:
-          keys: [backend-build]
+      # - restore_cache:
+      #     keys: [backend-build]
       - run:
           name: Back-end build
           command: |
             cd backend
-            npm cache clean --force
             npm install
             npm run build
       - save_cache:
