@@ -1,5 +1,9 @@
 version: 2.1
 
+# Define Slack
+orbs: 
+  slack: circleci/slack@4.9.3
+
 jobs:
   # build front end
   build-frontend:
@@ -18,6 +22,9 @@ jobs:
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-build
+      - slack/notify:
+          event: pass
+          template: success_tagged_deploy_1
 
   # build back end
   build-backend:
@@ -112,7 +119,8 @@ jobs:
 workflows:
   default:
     jobs:
-      - build-frontend
+      - build-frontend:
+          context: slack-secrets
       - build-backend
       - test-frontend:
           requires: [build-frontend]
