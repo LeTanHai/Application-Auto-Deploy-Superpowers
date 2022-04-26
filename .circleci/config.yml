@@ -32,7 +32,6 @@ jobs:
           command: |
             cd backend
             npm install
-            npm audit fix
             npm run build
       - save_cache:
           paths: [backend/node_modules]
@@ -89,7 +88,9 @@ jobs:
             npm install
             npm audit fix --audit-level=critical --force
             npm audit --audit-level=critical
-
+      - save_cache:
+          paths: [backend/node_modules]
+          key: scan-frontend
   # Analyze back end
   scan-backend:
     docker:
@@ -105,6 +106,9 @@ jobs:
             npm install
             npm audit fix --audit-level=critical --force
             npm audit --audit-level=critical
+      - save_cache:
+          paths: [backend/node_modules]
+          key: scan-backend
 workflows:
   default:
     jobs:
