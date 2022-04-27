@@ -178,10 +178,7 @@ jobs:
       # attach workspace
       - attach_workspace:
           at: ~/
-      - run: 
-          name: Verify inventory file 
-          command: |
-            cat ~/project/.circleci/ansible/inventory.txt
+      - run: cat ~/project/.circleci/ansible/inventory.txt
       - run:
           name: Install dependencies
           command: |
