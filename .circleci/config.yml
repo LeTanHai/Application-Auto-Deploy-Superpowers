@@ -156,7 +156,7 @@ jobs:
             aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --filters "Name=tag:project,Values=udapeople" \
-            --output text >> inventory
+            --output text >> inventory.txt
       - persist_to_workspace:
           root: ~/
           paths:
@@ -178,6 +178,10 @@ jobs:
       # attach workspace
       - attach_workspace:
           at: ~/
+      - run: 
+          name: Verify inventory file 
+          command: |
+            cat ~/project/.circleci/ansible/inventory.txt
       - run:
           name: Install dependencies
           command: |
