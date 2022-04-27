@@ -4,16 +4,6 @@ version: 2.1
 orbs: 
   slack: circleci/slack@4.9.3
 
-commands:
-  slack_notify:
-    steps:
-      - run:
-          name: Slack notify
-          when: on_fail
-      - slack/notify:
-          event: pass
-          template: success_tagged_deploy_1
-
 jobs:
   # build front end
   build-frontend:
@@ -33,7 +23,9 @@ jobs:
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-build
-      - slack_notify
+      - slack/notify:
+          event: fail
+          template: basic_fail_1
 
   # build back end
   build-backend:
