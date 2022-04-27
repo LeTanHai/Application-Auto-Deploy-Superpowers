@@ -182,7 +182,6 @@ jobs:
           name: Install dependencies
           command: |
             apk add --update ansible 
-            yum -y install tar gzip
       - run:
           name: Configure server
           command: |
