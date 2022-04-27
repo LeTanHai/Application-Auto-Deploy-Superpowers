@@ -151,12 +151,17 @@ jobs:
             --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  \
             --tags project=udapeople
       - run:
+          name: Create inventory file
+          command: |
+            touch inventory.txt
+            echo [all] > inventory.txt
+      - run:
           name: Add back-end ip to ansible inventory
           command: |
             aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --filters "Name=tag:project,Values=udapeople" \
-            --output text >> ~/inventory.txt
+            --output text >> inventory.txt
       - persist_to_workspace:
           root: ~/
           paths:
@@ -177,8 +182,8 @@ jobs:
           fingerprints: ["59:29:17:70:4d:55:65:a8:7a:ed:49:94:81:5a:93:c8"]
       # attach workspace
       - attach_workspace:
-          at: ~/
-      - run: cat ~/project/.circleci/ansible/inventory.txt
+          at: ~/project/.circleci/ansible
+      - run: cat /inventory.txt
       - run:
           name: Install dependencies
           command: |
