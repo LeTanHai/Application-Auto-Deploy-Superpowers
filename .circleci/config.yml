@@ -153,8 +153,8 @@ jobs:
       - run:
           name: Create inventory file
           command: |
-            touch inventory.txt
-            echo [all] > inventory.txt
+            touch ~/inventory.txt
+            echo [all] > ~/inventory.txt
       - run:
           name: Add back-end ip to ansible inventory
           command: |
@@ -165,7 +165,7 @@ jobs:
       - run:
           name: Verify inventory file
           command: |
-            cat inventory.txt
+            cat ~/inventory.txt
       - persist_to_workspace:
           root: ~/
           paths:
@@ -181,7 +181,7 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
-      - run: touch ~/inventory.txt
+      # - run: touch ~/inventory.txt
       # Add ssh keys with fingerprint
       - add_ssh_keys:
           fingerprints: ["59:29:17:70:4d:55:65:a8:7a:ed:49:94:81:5a:93:c8"]
