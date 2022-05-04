@@ -202,7 +202,7 @@ jobs:
       # - run: touch ~/inventory.txt
       # Add ssh keys with fingerprint
       - add_ssh_keys:
-          fingerprints: ["59:29:17:70:4d:55:65:a8:7a:ed:49:94:81:5a:93:c8"]
+          fingerprints: ["a0:c7:6c:07:e2:e9:04:85:e8:ee:2e:23:b3:35:bd:ca"]
       # attach workspace
       - attach_workspace:
           at: ~/
@@ -286,7 +286,7 @@ jobs:
       - checkout
       # Add ssh keys with fingerprint
       - add_ssh_keys:
-          fingerprints: ["59:29:17:70:4d:55:65:a8:7a:ed:49:94:81:5a:93:c8"]
+          fingerprints: ["a0:c7:6c:07:e2:e9:04:85:e8:ee:2e:23:b3:35:bd:ca"]
       # attach workspace
       - attach_workspace:
           at: ~/
