@@ -1,20 +1,17 @@
 ---
-- name: "upgrade packages."
+- name: "Add Node.js"
   become: true
-  apt:
-    upgrade: "yes"
+  shell: |
+    curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
 
-- name: "install dependencies."
+- name: "Install Node.js 13.8.0"
   become: true
   apt:
-    name: ["nodejs", "npm"]
+    name: ["nodejs"]
     state: latest
     update_cache: yes
 
-- name: "install pm2"
-  become: true
+- name: "Install pm2"
   npm:
     name: pm2
     global: yes
-    production: yes
-    state: present
