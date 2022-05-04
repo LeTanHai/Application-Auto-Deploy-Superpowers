@@ -215,6 +215,7 @@ jobs:
           name: Install dependencies
           command: |
             apk add --update tar gzip ansible nodejs npm
+            /usr/local/bin/python -m pip install --upgrade pip
       - run:
           name: Configure server
           command: |
