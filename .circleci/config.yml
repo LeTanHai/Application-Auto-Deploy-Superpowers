@@ -168,26 +168,30 @@ jobs:
             --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
             --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"  \
             --tags project=udapeople
-      - run:
-          name: Create inventory file
-          command: |
-            touch ~/inventory.txt
-            echo [all] > ~/inventory.txt
+      # - run:
+      #     name: Create inventory file
+      #     command: |
+      #       touch ~/inventory.txt
+      #       echo [all] > ~/inventory.txt
       - run:
           name: Add back-end ip to ansible inventory
           command: |
             aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --filters "Name=tag:project,Values=udapeople" \
-            --output text >> ~/inventory.txt
-      - run:
-          name: Verify inventory file
-          command: |
-            cat ~/inventory.txt
+            --output text >> .circleci/ansible/inventory.txt
+      # - run:
+      #     name: Verify inventory file
+      #     command: |
+      #       cat ~/inventory.txt
       - persist_to_workspace:
-          root: ~/
+          root: ~/project/.circleci/ansible
           paths:
-            - inventory.txt
+            - .
+      - run:
+          name: print inventory file
+          command: |
+            cat ~/project/.circleci/ansible/inventory.txt
       # Here's where you will add some code to rollback on failure
       - destroy-environment
     
@@ -205,8 +209,8 @@ jobs:
           fingerprints: ["a0:c7:6c:07:e2:e9:04:85:e8:ee:2e:23:b3:35:bd:ca"]
       # attach workspace
       - attach_workspace:
-          at: ~/
-      - run: cat ~/inventory.txt
+          at: ~/project/.circleci/ansible
+      - run: cat ~/project/.circleci/ansible/inventory.txt
       - run:
           name: Install dependencies
           command: |
@@ -217,7 +221,7 @@ jobs:
             cd .circleci/ansible
             export ANSIBLE_HOST_KEY_CHECKING=False
             export ANSIBLE_RECORD_HOST_KEYS=False
-            ansible-playbook -i ~/inventory.txt configure-server.yml
+            ansible-playbook -i inventory.txt configure-server.yml
   # Migrate DB
   run-migrations:
     docker:
