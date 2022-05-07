@@ -270,7 +270,7 @@ jobs:
       - run:
           name: Get backend url
           command: |
-            export BACKEND_IP=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:project,Values=udapeople")
+            export BACKEND_IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" --query 'Reservations[*].Instances[*].PublicIpAddress' --filters "Name=tag:project,Values=udapeople")
             export API_URL="http://${BACKEND_IP}:3030"
             echo "API_URL = ${API_URL}"
             echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
@@ -284,12 +284,13 @@ jobs:
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
       # Here's where you will add some code to rollback on failure
-      - destroy-environment
+      # - destroy-environment
   # Deploy backend
   deploy-backend:
     docker:
       # Docker image here that supports Ansible
       - image: circleci/node:13.8.0
+      - image: python:3.7-alpine
     steps:
       # Checkout code from git
       - checkout
@@ -310,15 +311,6 @@ jobs:
             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
             unzip awscliv2.zip
             sudo ./aws/install
-      - run:
-          name: Install Ansible
-          command: |
-            sudo add-apt-repository ppa:deadsnakes/ppa
-            sudo apt update -y && sudo apt upgrade -y
-            sudo apt install python3.8 python3-distutils -y
-            curl https://bootstrap.pypa.io/pip/3.6/get-pip.py -o get-pip.py
-            python3 get-pip.py --user
-            python3 -m pip install --user ansible
       - run:
           name: Deploy backend
           command: |
@@ -344,7 +336,7 @@ jobs:
             cat ~/inventory.txt
             ansible-playbook -i ~/inventory.txt deploy-backend.yml
       # Here's where you will add some code to rollback on failure
-      - destroy-environment
+      # - destroy-environment
 workflows:
   default:
     jobs:
