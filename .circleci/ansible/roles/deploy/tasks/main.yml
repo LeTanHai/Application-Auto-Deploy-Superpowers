@@ -11,7 +11,7 @@
 
 - name: Copy index test page
   template:
-    src: "artifact.tar.gz"
+    src: "files/artifact.tar.gz"
     dest: "~/server/artifact.tar.gz"
 
 - name: "extract the zipped artifact"
