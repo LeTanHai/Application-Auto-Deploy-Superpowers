@@ -293,7 +293,6 @@ jobs:
     docker:
       # Docker image here that supports Ansible
       - image: circleci/node:13.8.0
-      - image: python:3.7-alpine
     steps:
       # Checkout code from git
       - checkout
