@@ -4,16 +4,10 @@
     path: ~/server
     state: directory
 
-- name: Copy index test page
-  template:
+- name: "extract artifact."
+  unarchive:
     src: "files/artifact.tar.gz"
-    dest: "~/server/artifact.tar.gz"
-
-- name: "extract the zipped artifact"
-  become: true
-  shell: |
-    cd ~/server
-    tar -xf artifact.tar.gz
+    dest: "~/server"
 
 - name: "start server"
   become: true
