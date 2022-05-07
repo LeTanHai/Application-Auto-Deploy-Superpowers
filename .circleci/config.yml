@@ -321,7 +321,7 @@ jobs:
             sudo apt update
             sudo apt install -y ansible
       - run:
-          name: Deploy backend
+          name: Prepare Deploy backend
           command: |
             cd backend
             echo ENVIROMENT=$ENVIROMENT > ".env"
@@ -340,6 +340,9 @@ jobs:
             tar -C backend -czvf artifact.tar.gz .
             mkdir .circleci/ansible/roles/deploy/files
             mv artifact.tar.gz .circleci/ansible/roles/deploy/files/artifact.tar.gz
+      - run:
+          name: Deploy backend
+          command: |
             cd .circleci/ansible
             echo "Contents  of the inventory.txt file is -------"
             cat ~/inventory.txt
