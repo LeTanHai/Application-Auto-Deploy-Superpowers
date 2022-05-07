@@ -1,9 +1,4 @@
 ---
-- name: "upgrade packages."
-  become: true
-  apt:
-    upgrade: "yes"
-
 - name: Creates directory
   file:
     path: ~/server
