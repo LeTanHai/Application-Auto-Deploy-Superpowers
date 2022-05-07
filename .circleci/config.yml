@@ -221,7 +221,7 @@ jobs:
   # Migrate DB
   run-migrations:
     docker:
-      - image: cimg/node:16.14.2
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       # - restore_cache:
