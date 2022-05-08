@@ -462,20 +462,20 @@ jobs:
         - run:
             name: Remove old stacks
             command: |
-              cat ~/OldWorkflowID.txt
-              OldWorkflowID=$(cat ~/OldWorkflowID.txt)
-              echo OldWorkflowID: "${OldWorkflowID}"
+              # cat ~/OldWorkflowID.txt
+              # OldWorkflowID=$(cat ~/OldWorkflowID.txt)
+              # echo OldWorkflowID: "${OldWorkflowID}"
               echo Stacks: "${STACKS[@]}"
               for stackitem in ${STACKS[@]}
               do
                 echo $stackitem
                 echo $stackitem =~ "${CIRCLE_WORKFLOW_ID:0:7}"
-                if [[ ! $stackitem =~ .*"${CIRCLE_WORKFLOW_ID:0:7}".* ]]
-                then
-                  aws s3 rm s3://${OldWorkflowID} --recursive
-                  aws s3api delete-bucket --bucket ${OldWorkflowID} --region us-east-1
-                  aws cloudformation delete-stack --stack-name "udapeople-backend-${OldWorkflowID: -7}"
-                  aws cloudformation delete-stack --stack-name "udapeople-frontend-${OldWorkflowID: -7}"
+                # if [[ ! $stackitem =~ .*"${CIRCLE_WORKFLOW_ID:0:7}".* ]]
+                # then
+                #   aws s3 rm s3://${OldWorkflowID} --recursive
+                #   aws s3api delete-bucket --bucket ${OldWorkflowID} --region us-east-1
+                #   aws cloudformation delete-stack --stack-name "udapeople-backend-${OldWorkflowID: -7}"
+                #   aws cloudformation delete-stack --stack-name "udapeople-frontend-${OldWorkflowID: -7}"
                 else
                   echo "--------------- CANNOT CLEAN ---------------"
                 fi
