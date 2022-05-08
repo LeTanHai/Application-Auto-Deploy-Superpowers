@@ -9,14 +9,12 @@
     src: "files/artifact.tar.gz"
     dest: "~/server"
 
-# - name: "stop app."
-#   become: true
-#   shell: pm2 stop default
-#   ignore_errors: yes
+- name: "stop app."
+  become: true
+  shell: pm2 stop default
+  ignore_errors: yes
 
-- name: "Executing Node app with PM2"
+- name: "start server"
+  become: true
   shell: |
-    cd ~/server/dist
-    pm2 stop default
-    pm2 start main.js
-  register: execute_node
+    pm2 start npm -- start ~/server -f
