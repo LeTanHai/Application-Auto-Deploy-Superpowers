@@ -455,9 +455,9 @@ jobs:
         - run:
             name: Remove old stacks
             command: |
-              # cat ~/OldWorkflowID.txt
-              # OldWorkflowID=$(cat ~/OldWorkflowID.txt)
-              # echo OldWorkflowID: "${OldWorkflowID}"
+              cat ~/OldWorkflowID.txt
+              OldWorkflowID=$(cat ~/OldWorkflowID.txt)
+              echo OldWorkflowID: "${OldWorkflowID}"
               export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" --stack-status-filter CREATE_COMPLETE --no-paginate --output text))
               echo Stacks: "${STACKS[@]}"
               for stackitem in ${STACKS[@]}
@@ -467,9 +467,9 @@ jobs:
                 then
                   aws s3 rm s3://${OldWorkflowID} --recursive
                   aws s3api delete-bucket --bucket ${OldWorkflowID} --region us-east-1
-                  echo "Delete backend stack name udapeople-backend-${OldWorkflowID: -7}"
+                  echo Delete backend stack name udapeople-backend-"${OldWorkflowID: -7}"
                   aws cloudformation delete-stack --stack-name "udapeople-backend-${OldWorkflowID: -7}"
-                  echo "Delete front end stack name udapeople-frontend-${OldWorkflowID: -7}"
+                  echo Delete front end stack name udapeople-frontend-"${OldWorkflowID: -7}"
                   aws cloudformation delete-stack --stack-name "udapeople-frontend-${OldWorkflowID: -7}"
                 else
                   echo "--------------- CANNOT CLEAN ---------------"
@@ -482,33 +482,33 @@ jobs:
 workflows:
   default:
     jobs:
-      # - build-frontend:
-      #     context: slack-secrets
-      # - build-backend
-      # - test-frontend:
-      #     requires: [build-frontend]
-      # - test-backend:
-      #     requires: [build-backend]
-      # - scan-frontend:
-      #     requires: [build-frontend]
-      # - scan-backend:
-      #     requires: [build-backend]
-      # - deploy-infrastructure:
-      #     requires: [test-frontend, test-backend, scan-frontend, scan-backend]
-      #     filters:
-      #       branches:
-      #         only: master
-      # - configure-infrastructure:
-      #     requires: [deploy-infrastructure]
-      # - run-migrations:
-      #     requires: [configure-infrastructure]
-      # - deploy-frontend:
-      #     requires: [run-migrations]
-      # - deploy-backend:
-      #     requires: [run-migrations]
-      # - smoke-test:
-      #     requires: [deploy-backend, deploy-frontend]
-      # - cloudfront-update:
-      #     requires: [smoke-test]
-      - cleanup
-          # requires: [cloudfront-update]
+      - build-frontend:
+          context: slack-secrets
+      - build-backend
+      - test-frontend:
+          requires: [build-frontend]
+      - test-backend:
+          requires: [build-backend]
+      - scan-frontend:
+          requires: [build-frontend]
+      - scan-backend:
+          requires: [build-backend]
+      - deploy-infrastructure:
+          requires: [test-frontend, test-backend, scan-frontend, scan-backend]
+          filters:
+            branches:
+              only: master
+      - configure-infrastructure:
+          requires: [deploy-infrastructure]
+      - run-migrations:
+          requires: [configure-infrastructure]
+      - deploy-frontend:
+          requires: [run-migrations]
+      - deploy-backend:
+          requires: [run-migrations]
+      - smoke-test:
+          requires: [deploy-backend, deploy-frontend]
+      - cloudfront-update:
+          requires: [smoke-test]
+      - cleanup:
+          requires: [cloudfront-update]
