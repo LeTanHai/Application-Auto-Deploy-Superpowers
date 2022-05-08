@@ -1,20 +1,24 @@
 ---
 - name: Creates directory
   file:
-    path: ~/server
+    path: /home/ubuntu/server
     state: directory
 
 - name: "extract artifact."
   unarchive:
     src: "files/artifact.tar.gz"
-    dest: "~/server"
+    dest: "/home/ubuntu/server"
 
 - name: "stop app."
   become: true
-  shell: pm2 stop default
+  shell: |
+    cd /home/ubuntu/server
+    pm2 stop default
   ignore_errors: yes
 
 - name: "start server"
   become: true
   shell: |
-    pm2 start npm -- start ~/server -f
+    cd /home/ubuntu/server
+    pm2 delete default
+    pm2 start npm -- start
