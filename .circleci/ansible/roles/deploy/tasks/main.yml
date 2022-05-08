@@ -20,5 +20,6 @@
   become: true
   shell: |
     cd /home/ubuntu/server
+    npm install
     pm2 delete default
     pm2 start npm -- start
