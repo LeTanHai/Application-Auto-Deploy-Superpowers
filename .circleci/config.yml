@@ -54,7 +54,7 @@ jobs:
   # build back end
   build-backend:
     docker:
-      - image: circleci/node:14.19.2
+      - image: circleci/node:14.18-buster-browsers
     steps:
       - checkout
       - restore_cache:
