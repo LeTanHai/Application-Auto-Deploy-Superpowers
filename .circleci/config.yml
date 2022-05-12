@@ -54,7 +54,7 @@ jobs:
   # build back end
   build-backend:
     docker:
-      - image: circleci/node:13.8.0
+      - image: cimg/node:16.14.2
     steps:
       - checkout
       - restore_cache:
