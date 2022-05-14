@@ -1,10 +1,4 @@
 1. Public Url to GitHub repository (not private) [URL01]
     https://github.com/LeTanHai/Application-Auto-Deploy-Superpowers/tree/master
 2. Public URL for your S3 Bucket (aka, your green candidate front-end) [URL02]
-    http://udapeople-b6c8eb8.s3-website-us-east-1.amazonaws.com
-3. Public URL for your CloudFront distribution (aka, your blue production front-end) [URL03]
-    http://d19ufwjvt8ymv5.cloudfront.net
-4. Public URLs to deployed application back-end in EC2 [URL04]
-    http://ec2-3-85-163-62.compute-1.amazonaws.com:3030
-5. Public URL to your Prometheus Server [URL05]
-    http://ec2-3-86-219-143.compute-1.amazonaws.com:9090
+    http://udapeople-b45b4ea.s3-website-us-east-1.amazonaws.com

@@ -5,9 +5,6 @@ The project incluses:
 - A text file named `urls.txt` including:
   1. Public Url to GitHub repository (not private) [URL01]
   2. Public URL for your S3 Bucket (aka, your green candidate front-end) [URL02]
-  3. Public URL for your CloudFront distribution (aka, your blue production front-end) [URL03]
-  4. Public URLs to deployed application back-end in EC2 [URL04]
-  5. Public URL to your Prometheus Server [URL05]
 - Your screenshots in JPG or PNG format, named using the screenshot number listed in the instructions. These screenshots should be included in your code repository in the root folder.
   1. Job failed because of compile errors. [SCREENSHOT01]
   2. Job failed because of unit tests. [SCREENSHOT02]
